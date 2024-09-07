@@ -1,2 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+using xadrez_console.tabuleiro;
+
+Posicao P;
+
+P = new Posicao(7, 7);
+
+Console.WriteLine($"Posicao: {P}");
