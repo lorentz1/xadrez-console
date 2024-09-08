@@ -1,4 +1,6 @@
-﻿namespace tabuleiro
+﻿using xadrez_console.tabuleiro;
+
+namespace tabuleiro
 {
     internal class Tabuleiro
     {
@@ -15,10 +17,39 @@
         {
             return pecas[linha, coluna];
         }
-        public void colocarPeca(Peca p, Posicao pos)
+        public Peca peca(Posicao pos)
         {
-            pecas[pos.Linha, pos.Coluna] = p; 
+            return pecas[pos.Linha, pos.Coluna];
+        }
+        public bool ExistePeca(Posicao pos)
+        {
+            ValidarPosicao(pos);
+            return peca(pos) != null;
+        }
+        public void ColocarPeca(Peca p, Posicao pos)
+        {
+            if (ExistePeca(pos))
+            {
+                throw new TabuleiroException("Já existe uma peça nessa posição!");
+            }
+            pecas[pos.Linha, pos.Coluna] = p;
             p.Posicao = pos;
+        }
+
+        public bool PosicaoValida(Posicao pos)
+        {
+            if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas)
+            {
+                return false;
+            }
+            return true;
+        }
+        public void ValidarPosicao(Posicao pos)
+        {
+            if (!PosicaoValida(pos))
+            {
+                throw new TabuleiroException("Posição inválida!");
+            }
         }
     }
 }
